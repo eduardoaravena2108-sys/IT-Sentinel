@@ -1,1 +1,914 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT-Sentinel v0.1</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #071018;
+    color: #e8f0f7;
+}
+
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 240px;
+    background: #050c13;
+    border-right: 1px solid #172532;
+    padding: 22px 14px;
+    position: fixed;
+    height: 100vh;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    margin-bottom: 35px;
+}
+
+.logo-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: #0b5cff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.logo h1 {
+    font-size: 18px;
+}
+
+.logo span {
+    color: #38a8ff;
+    font-size: 11px;
+}
+
+.section-title {
+    color: #71808c;
+    font-size: 10px;
+    text-transform: uppercase;
+    margin: 20px 10px 8px;
+}
+
+.menu {
+    list-style: none;
+}
+
+.menu li {
+    margin-bottom: 5px;
+}
+
+.menu a {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 11px 12px;
+    color: #aab7c2;
+    text-decoration: none;
+    border-radius: 7px;
+    font-size: 14px;
+}
+
+.menu a:hover,
+.menu a.active {
+    background: #0b5ca8;
+    color: white;
+}
+
+.sidebar-bottom {
+    position: absolute;
+    bottom: 20px;
+    left: 14px;
+    right: 14px;
+    background: #09141e;
+    border: 1px solid #1b2b39;
+    border-radius: 10px;
+    padding: 14px;
+}
+
+.sidebar-bottom small {
+    color: #71808c;
+}
+
+.online-dot {
+    width: 8px;
+    height: 8px;
+    background: #00d26a;
+    display: inline-block;
+    border-radius: 50%;
+    margin-left: 5px;
+}
+
+/* MAIN */
+
+.main {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    padding: 25px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.title h2 {
+    font-size: 28px;
+}
+
+.title p {
+    color: #71808c;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.top-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.search {
+    background: #0b151e;
+    border: 1px solid #21313e;
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: #8d9ba7;
+}
+
+.refresh {
+    background: #087cf0;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+/* CARDS */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.card {
+    background: #0b151e;
+    border: 1px solid #1b2a36;
+    border-radius: 10px;
+    padding: 18px;
+}
+
+.card-title {
+    color: #81909b;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.card-value {
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 9px;
+}
+
+.green {
+    color: #00d26a;
+}
+
+.blue {
+    color: #2d9cff;
+}
+
+.purple {
+    color: #b65cff;
+}
+
+.orange {
+    color: #ff9d00;
+}
+
+.red {
+    color: #ff3b4d;
+}
+
+.card-sub {
+    color: #71808c;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+/* GRID */
+
+.grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.panel {
+    background: #0b151e;
+    border: 1px solid #1b2a36;
+    border-radius: 10px;
+    padding: 18px;
+}
+
+.panel-title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.panel-title span {
+    color: #71808c;
+    font-size: 11px;
+}
+
+/* METRICS */
+
+.metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.metric {
+    text-align: center;
+}
+
+.circle {
+    width: 115px;
+    height: 115px;
+    border-radius: 50%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    background: #111d27;
+    border: 9px solid #1687e8;
+}
+
+.circle.ram {
+    border-color: #00c96b;
+}
+
+.circle.disk {
+    border-color: #a84dff;
+}
+
+.metric p {
+    margin-top: 9px;
+    color: #8b99a4;
+    font-size: 11px;
+}
+
+/* STORAGE */
+
+.storage-row {
+    display: grid;
+    grid-template-columns: 1.4fr .6fr .8fr .8fr .7fr;
+    gap: 8px;
+    padding: 12px 5px;
+    border-bottom: 1px solid #172631;
+    font-size: 11px;
+    align-items: center;
+}
+
+.storage-head {
+    color: #71808c;
+    font-size: 9px;
+    text-transform: uppercase;
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 9px;
+    text-align: center;
+}
+
+.badge.ok {
+    color: #00d26a;
+    background: #07351f;
+}
+
+.badge.warning {
+    color: #ffad1f;
+    background: #39280a;
+}
+
+.badge.critical {
+    color: #ff4556;
+    background: #3a0c13;
+}
+
+/* TABLE */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+}
+
+th {
+    color: #71808c;
+    text-align: left;
+    font-size: 9px;
+    text-transform: uppercase;
+    padding: 10px 6px;
+}
+
+td {
+    padding: 11px 6px;
+    border-top: 1px solid #172631;
+}
+
+.status-online {
+    color: #00d26a;
+}
+
+.status-offline {
+    color: #ff4556;
+}
+
+/* PROGRESS */
+
+.progress {
+    width: 100%;
+    height: 7px;
+    background: #1b2933;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.progress div {
+    height: 100%;
+    width: 83%;
+    background: #ff9d00;
+}
+
+/* SECURITY */
+
+.event {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 0;
+    border-bottom: 1px solid #172631;
+}
+
+.event strong {
+    font-size: 11px;
+}
+
+.event small {
+    display: block;
+    color: #71808c;
+    margin-top: 4px;
+}
+
+.event-time {
+    color: #71808c;
+    font-size: 9px;
+}
+
+/* ALERTS */
+
+.alert {
+    display: grid;
+    grid-template-columns: 80px 130px 130px 1fr 90px;
+    gap: 10px;
+    padding: 12px 5px;
+    border-bottom: 1px solid #172631;
+    font-size: 10px;
+    align-items: center;
+}
+
+/* NETWORK */
+
+.network {
+    height: 180px;
+    position: relative;
+    background:
+        linear-gradient(#172630 1px, transparent 1px),
+        linear-gradient(90deg, #172630 1px, transparent 1px);
+    background-size: 40px 40px;
+    overflow: hidden;
+}
+
+.line {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.line svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 1100px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width: 700px) {
+    .sidebar {
+        display: none;
+    }
+
+    .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 15px;
+    }
+
+    .topbar {
+        align-items: flex-start;
+    }
+
+    .search {
+        display: none;
+    }
+
+    .cards {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .storage-row {
+        overflow-x: auto;
+        min-width: 650px;
+    }
+
+    .panel {
+        overflow-x: auto;
+    }
+
+    .alert {
+        min-width: 600px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="logo">
+    <div class="logo-icon">🛡️</div>
+    <div>
+        <h1>IT-SENTINEL</h1>
+        <span>v0.1</span>
+    </div>
+</div>
+
+<div class="section-title">Principal</div>
+
+<ul class="menu">
+    <li><a class="active" href="#">🏠 Dashboard</a></li>
+    <li><a href="#">🖥️ Servidores</a></li>
+    <li><a href="#">💾 Almacenamiento</a></li>
+    <li><a href="#">🌐 Red</a></li>
+    <li><a href="#">🛡️ Seguridad</a></li>
+    <li><a href="#">🔔 Alertas</a></li>
+</ul>
+
+<div class="section-title">Monitoreo</div>
+
+<ul class="menu">
+    <li><a href="#">📈 Rendimiento</a></li>
+    <li><a href="#">⚡ Tiempo real</a></li>
+    <li><a href="#">🕘 Histórico</a></li>
+</ul>
+
+<div class="section-title">Configuración</div>
+
+<ul class="menu">
+    <li><a href="#">⚙️ Dispositivos</a></li>
+    <li><a href="#">🔌 Integraciones</a></li>
+    <li><a href="#">📨 Notificaciones</a></li>
+    <li><a href="#">👤 Usuarios</a></li>
+</ul>
+
+<div class="sidebar-bottom">
+    <strong>🛡️ IT-SENTINEL</strong>
+    <span class="online-dot"></span>
+    <br>
+    <small>Monitoreo activo</small>
+</div>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<div class="topbar">
+
+<div class="title">
+    <h2>Dashboard</h2>
+    <p>Resumen general de la infraestructura TI</p>
+</div>
+
+<div class="top-actions">
+    <input class="search" placeholder="🔎 Buscar...">
+    <button class="refresh" onclick="actualizar()">↻ Actualizar</button>
+</div>
+
+</div>
+
+<!-- SUMMARY -->
+
+<section class="cards">
+
+<div class="card">
+    <div class="card-title">Estado general</div>
+    <div class="card-value green">● ÓPTIMO</div>
+    <div class="card-sub">Todos los sistemas operativos</div>
+</div>
+
+<div class="card">
+    <div class="card-title">Servidores</div>
+    <div class="card-value blue">18</div>
+    <div class="card-sub">16 Online · 2 Offline</div>
+</div>
+
+<div class="card">
+    <div class="card-title">Almacenamiento</div>
+    <div class="card-value purple">83%</div>
+    <div class="card-sub">Utilización total</div>
+</div>
+
+<div class="card">
+    <div class="card-title">Tráfico de red</div>
+    <div class="card-value orange">720 Mbps</div>
+    <div class="card-sub">Ancho de banda actual</div>
+</div>
+
+<div class="card">
+    <div class="card-title">Alertas críticas</div>
+    <div class="card-value red">5</div>
+    <div class="card-sub">Requieren atención</div>
+</div>
+
+</section>
+
+<!-- PERFORMANCE + STORAGE -->
+
+<section class="grid">
+
+<div class="panel">
+
+<div class="panel-title">
+    RENDIMIENTO DE SERVIDORES
+    <span>Promedio</span>
+</div>
+
+<div class="metrics">
+
+<div class="metric">
+    <div class="circle">67%</div>
+    <p>CPU</p>
+</div>
+
+<div class="metric">
+    <div class="circle ram">74%</div>
+    <p>RAM</p>
+</div>
+
+<div class="metric">
+    <div class="circle disk">83%</div>
+    <p>DISCO</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<div class="panel-title">
+    ALMACENAMIENTO NAS / SAN
+    <span>Estado actual</span>
+</div>
+
+<div class="storage-row storage-head">
+    <div>Dispositivo</div>
+    <div>Tipo</div>
+    <div>Capacidad</div>
+    <div>Utilizado</div>
+    <div>Estado</div>
+</div>
+
+<div class="storage-row">
+    <div>NAS-PRINCIPAL</div>
+    <div>NAS</div>
+    <div>32 TB</div>
+    <div>26.5 TB</div>
+    <div class="badge warning">ALERTA</div>
+</div>
+
+<div class="storage-row">
+    <div>SAN-01</div>
+    <div>SAN</div>
+    <div>50 TB</div>
+    <div class="red">45.2 TB</div>
+    <div class="badge critical">CRÍTICO</div>
+</div>
+
+<div class="storage-row">
+    <div>NAS-BACKUP</div>
+    <div>NAS</div>
+    <div>16 TB</div>
+    <div>10.1 TB</div>
+    <div class="badge ok">OK</div>
+</div>
+
+<div class="progress">
+    <div></div>
+</div>
+
+</div>
+
+</section>
+
+<!-- NETWORK + SERVERS + SECURITY -->
+
+<section class="grid">
+
+<div class="panel">
+
+<div class="panel-title">
+    TRÁFICO DE RED
+    <span>720 Mbps total</span>
+</div>
+
+<div class="network">
+
+<div class="line">
+<svg viewBox="0 0 500 180" preserveAspectRatio="none">
+<polyline
+fill="none"
+stroke="#1595ff"
+stroke-width="3"
+points="0,120 30,100 60,115 90,80 120,105 150,65 180,90 210,55 240,75 270,50 300,80 330,65 360,90 390,70 420,95 450,60 500,75"/>
+<polyline
+fill="none"
+stroke="#00d26a"
+stroke-width="3"
+points="0,145 30,135 60,140 90,120 120,130 150,110 180,125 210,100 240,120 270,95 300,110 330,105 360,120 390,100 420,115 450,90 500,100"/>
+</svg>
+</div>
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<div class="panel-title">
+    ESTADO DE SERVIDORES
+    <span>18 equipos</span>
+</div>
+
+<table>
+
+<tr>
+<th>Servidor</th>
+<th>CPU</th>
+<th>RAM</th>
+<th>Estado</th>
+</tr>
+
+<tr>
+<td>SRV-APP-01</td>
+<td>65%</td>
+<td>72%</td>
+<td class="status-online">● Online</td>
+</tr>
+
+<tr>
+<td>SRV-DB-01</td>
+<td>48%</td>
+<td>63%</td>
+<td class="status-online">● Online</td>
+</tr>
+
+<tr>
+<td>SRV-WEB-01</td>
+<td>71%</td>
+<td>78%</td>
+<td class="status-online">● Online</td>
+</tr>
+
+<tr>
+<td>SRV-FILE-01</td>
+<td>34%</td>
+<td>55%</td>
+<td class="status-online">● Online</td>
+</tr>
+
+<tr>
+<td>SRV-APP-02</td>
+<td>0%</td>
+<td>0%</td>
+<td class="status-offline">● Offline</td>
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- SECURITY -->
+
+<section class="grid">
+
+<div class="panel">
+
+<div class="panel-title">
+    SEGURIDAD · EVENTOS RECIENTES
+    <span>Últimos eventos</span>
+</div>
+
+<div class="event">
+<div>
+<strong>🔴 Intento de intrusión bloqueado</strong>
+<small>IP origen: 185.199.108.153</small>
+</div>
+<div class="event-time">11:21:34</div>
+</div>
+
+<div class="event">
+<div>
+<strong>🟠 Escaneo de puertos detectado</strong>
+<small>IP origen: 167.71.12.45</small>
+</div>
+<div class="event-time">11:18:02</div>
+</div>
+
+<div class="event">
+<div>
+<strong>🟠 Múltiples intentos de login fallidos</strong>
+<small>IP origen: 103.24.56.91</small>
+</div>
+<div class="event-time">11:15:44</div>
+</div>
+
+<div class="event">
+<div>
+<strong>🔵 VPN Sucursal Concepción conectada</strong>
+<small>IP: 190.3.45.23</small>
+</div>
+<div class="event-time">11:12:11</div>
+</div>
+
+</div>
+
+<div class="panel">
+
+<div class="panel-title">
+    ESTADO VPN SUCURSALES
+    <span>6 conexiones</span>
+</div>
+
+<div class="event">
+<strong>🟢 SANTIAGO</strong>
+<span class="green">Conectada · 12 ms</span>
+</div>
+
+<div class="event">
+<strong>🟢 CONCEPCIÓN</strong>
+<span class="green">Conectada · 15 ms</span>
+</div>
+
+<div class="event">
+<strong>🟢 TEMUCO</strong>
+<span class="green">Conectada · 18 ms</span>
+</div>
+
+<div class="event">
+<strong>🟢 VALDIVIA</strong>
+<span class="green">Conectada · 14 ms</span>
+</div>
+
+<div class="event">
+<strong>🔴 ANTOFAGASTA</strong>
+<span class="red">Desconectada</span>
+</div>
+
+</div>
+
+</section>
+
+<!-- ALERTS -->
+
+<section class="panel">
+
+<div class="panel-title">
+    ALERTAS ACTIVAS
+    <span>5 alertas</span>
+</div>
+
+<div class="alert">
+<strong class="red">🔴 Crítica</strong>
+<span>18/05/2025 11:21</span>
+<span>SAN-01</span>
+<span>Almacenamiento al 90% de capacidad</span>
+<span class="badge critical">NO RESUELTA</span>
+</div>
+
+<div class="alert">
+<strong class="red">🔴 Crítica</strong>
+<span>18/05/2025 11:16</span>
+<span>SRV-APP-01</span>
+<span>Uso de CPU sobre 70%</span>
+<span class="badge critical">NO RESUELTA</span>
+</div>
+
+<div class="alert">
+<strong class="orange">🟠 Advertencia</strong>
+<span>18/05/2025 11:15</span>
+<span>Firewall</span>
+<span>Múltiples intentos de acceso bloqueados</span>
+<span class="badge warning">NO RESUELTA</span>
+</div>
+
+<div class="alert">
+<strong class="orange">🟠 Advertencia</strong>
+<span>18/05/2025 11:07</span>
+<span>NAS-PRINCIPAL</span>
+<span>Almacenamiento sobre 80%</span>
+<span class="badge warning">NO RESUELTA</span>
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+<script>
+
+function actualizar() {
+
+    const button = document.querySelector(".refresh");
+
+    button.innerText = "✓ Actualizado";
+
+    setTimeout(() => {
+        button.innerText = "↻ Actualizar";
+    }, 1500);
+
+}
+
+</script>
+
+</body>
+</html>
